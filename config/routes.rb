@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  root 'sessions#new'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :users, only: [:new, :create, :index, :show]
   resources :sessions, only: [:new, :create, :destroy]
-  resources :pokemons, only: [:new, :create, :show, :index]
+  get '/api/pokemon', to: 'pokemons#index'
 end
