@@ -1,30 +1,19 @@
 class PokemonsController < ApplicationController
-  before_action :get_pokemons, :only => [:index, :show]
-  before_action :validate_params, :only => [:create]
-
-  def get_pokemon
-    @pokemon = []
-  end
-
-  def show
-
-  end
 
   def index
-
-  end
-
-  def new
-    @pokemon = Pokemon.new
+    @ps = Pokemon.all
   end
 
   def create
-    Pokemon.create(params)
+    respond_with Pokemon.create(post_params)
+  end
+
+  def show
+    respond_with Pokemon.find(params[:id])
   end
 
   private
-
-  def validate_params
-    params.require(:name, :image)
+  def pokemon_params
+    params.require(:pokemon).permit(:name, :image)
   end
 end
