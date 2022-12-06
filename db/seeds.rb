@@ -1,7 +1,38 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+def types
+  response = RestClient.get 'https://pokeapi.co/api/v2/type?limit=20'
+  json= JSON.parse response
+
+  if !json.nil?
+    json["results"].map do |type|
+      Type.create(name: "#{type["name"]}")
+    end
+  else
+    puts "error seeding types"
+  end
+end
+
+def pokemon
+  response = RestClient.get 'https://pokeapi.co/api/v2/pokemon?limit=1154'
+  json= JSON.parse response
+  if !json.nil?
+    json["results"].map do |pmon|
+      response= RestClient.get "#{pmon["url"]}"
+      json2 = JSON.parse response
+      if !json2.nil?
+        Pokemon.create(name: "#{pmon["name"]}", image: "#{json2["sprites"]["front_default"]}")
+        json2["types"].map do |poketype|
+          type=Type.find_by name: "#{poketype["type"]["name"]}"
+          poke=Pokemon.find_by name: "#{pmon["name"]}"
+          PokeType.create(pokemon_id: poke.id, type_id: type.id)
+        end
+      else
+        puts "error seeding poketypes"
+      end
+    end
+  else
+    puts "error seeding pokemon"
+  end
+
+end
+types
+pokemon
