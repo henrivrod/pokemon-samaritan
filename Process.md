@@ -11,3 +11,8 @@ rails db:migrate
 rails generate migration CreateTypes name:string
 rails db:migrate
 ```
+4. Create Join table for Pokemon and Types called PokeType:
+```console
+rails g model PokeType pokemon:references type:references
+```
+5. Create and update Pokemon, Type and PokeType models.
