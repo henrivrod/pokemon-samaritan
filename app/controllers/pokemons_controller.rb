@@ -1,7 +1,11 @@
 class PokemonsController < ApplicationController
 
   def index
-    @ps = Pokemon.all
+    j = {
+      "count" => Pokemon.count,
+      "results" => Pokemon.all
+    }
+    render json: j
   end
 
   def create

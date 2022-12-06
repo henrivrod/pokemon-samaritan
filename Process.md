@@ -16,5 +16,5 @@ rails db:migrate
 rails g model PokeType pokemon:references type:references
 ```
 5. Create and update Pokemon, Type and PokeType models.
-6. Added Pokemon and Types controller files.
 7. Set up the seeds.rb file to seed the database with Pokemon, Types and Poketypes.
+8. Set up pokemons controller file to begin API functionality.
