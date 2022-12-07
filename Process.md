@@ -18,3 +18,4 @@ rails g model PokeType pokemon:references type:references
 5. Create and update Pokemon, Type and PokeType models.
 7. Set up the seeds.rb file to seed the database with Pokemon, Types and Poketypes.
 8. Set up pokemons controller file to begin API functionality, without pagination.
+9. Routes set up for GET /api/pokemon and GET /api/pokemon/id (not POST yet)
